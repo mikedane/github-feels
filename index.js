@@ -30,34 +30,10 @@ fly.http.respondWith( async (req)=> {
       return new Response(JSON.stringify({errors: [e]}), corsHeaders)
     }
   }
-
 })
 
-
-
-// fly.http.respondWith( async (req)=> {
-//   try {
-//     const url = new URL(req.url);
-//     let issuesResponse = await getRepoIssues(url.searchParams.get('user'), url.searchParams.get('repo'));
-//     if(!issuesResponse.errors){
-//       let promises = issuesResponse.data.repository.issues.edges.map(issue => 
-//         getSentimentAnalysis(issue.node.title + ". " + issue.node.bodyText)
-//           .then(result => {
-//             issue.node.sentiment = result;
-//           })
-//       );
-//       await Promise.all(promises);
-//       return new Response(JSON.stringify({issues: issuesResponse.data.repository.issues.edges.map(edge => edge.node)}), corsHeaders)
-//     } else {
-//       return new Response(JSON.stringify({errors: issuesResponse.errors.map(error => error.message)}), corsHeaders)
-//     }
-//   } catch (e){
-//     return new Response(JSON.stringify({errors: [e]}), corsHeaders)
-//   }
-// })
-  
 async function getRepoIssues(username, repo){
-  const accessToken = "48c6c1f43cc5d3541c908aef75a29c5655c88441";
+  const accessToken = "GH_AUTH TOKEN HERE";
   const query = `
     query {
       repository(owner:"${username}", name:"${repo}") {
